@@ -1,5 +1,7 @@
 package br.com.rd.rdevs.model;
 
+import br.com.rd.rdevs.exception.TestemunhaException;
+
 public abstract class Certidao extends Documento{
 	private Pessoa[] pessoaObjetos;
 	private Pessoa[] declarantes;
@@ -28,7 +30,17 @@ public abstract class Certidao extends Documento{
 		return declarantes;
 	}
 	public void setDeclarantes(Pessoa[] declarantes) {
-		this.declarantes = declarantes;
+		try {
+			if(declarantes.length <= 0) {
+				throw new TestemunhaException("Nessecita pelo menos 1 Declarantes!");
+			}else {
+				this.declarantes = declarantes;
+			}
+		}
+		catch(RuntimeException e) {
+			System.out.println("Erro ao adicionar Declarantes! "+e.getMessage());
+		}
+		
 	}
 	
 	public int getContador() {
